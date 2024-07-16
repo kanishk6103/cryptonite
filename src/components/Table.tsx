@@ -2,9 +2,17 @@
 import { useState } from "react";
 import { Company } from "@/types/companyHoldings";
 
-const Table = ({ headings, data }: { headings: string[]; data: Company[] }) => {
+const Table = ({
+  headings,
+  data,
+  itemsPerPage,
+}: {
+  headings: { heading: string; key: string }[];
+  data: Company[];
+  itemsPerPage: number;
+}) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const itemsPerPage = 5; // items we want on one page with pagination
+  // items we want on one page with pagination
   // Here I have calculated the array items that must be at that particular page, from x index to y index
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -25,7 +33,7 @@ const Table = ({ headings, data }: { headings: string[]; data: Company[] }) => {
                     className="px-6 py-3 w-[20%] cursor-pointer"
                     key={index}
                   >
-                    {singleHeading}
+                    {singleHeading.heading}
                   </th>
                 );
               })}
@@ -33,20 +41,19 @@ const Table = ({ headings, data }: { headings: string[]; data: Company[] }) => {
           </thead>
           <tbody>
             {currentData.map((singleCompany, index) => {
-              const {
-                name,
-                total_holdings,
-                total_entry_value_usd,
-                total_current_value_usd,
-                percentage_of_total_supply,
-              } = singleCompany;
               return (
                 <tr className="border-b cursor-pointer" key={index}>
-                  <td className="p-6 font-medium">{name}</td>
-                  <td className="p-6">{total_holdings}</td>
-                  <td className="p-6">{total_entry_value_usd}</td>
-                  <td className="p-6">{total_current_value_usd}</td>
-                  <td className="p-6">{percentage_of_total_supply}</td>
+                  {headings.map((singleHeading, index) => {
+                    const currentHeading = singleHeading.key;
+                    return (
+                      <td
+                        className={`p-6 ${index === 0 ? "font-medium" : ""}`}
+                        key={index}
+                      >
+                        {singleCompany[currentHeading]}
+                      </td>
+                    );
+                  })}
                 </tr>
               );
             })}

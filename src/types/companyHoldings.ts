@@ -6,6 +6,7 @@ export interface Company {
   total_entry_value_usd: number;
   total_current_value_usd: number;
   percentage_of_total_supply: number;
+  [key: string]: string | number;
 }
 
 export interface HoldingsData {
