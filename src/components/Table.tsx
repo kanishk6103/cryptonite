@@ -6,10 +6,12 @@ const Table = ({
   headings,
   data,
   itemsPerPage,
+  rowClickHandler,
 }: {
   headings: { heading: string; key: string }[];
   data: Company[];
   itemsPerPage: number;
+  rowClickHandler: ((id: string) => void) | null;
 }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   // items we want on one page with pagination
@@ -42,7 +44,17 @@ const Table = ({
           <tbody>
             {currentData.map((singleCompany, index) => {
               return (
-                <tr className="border-b cursor-pointer" key={index}>
+                <tr
+                  className={`border-b ${
+                    rowClickHandler ? "cursor-pointer" : ""
+                  }`}
+                  key={index}
+                  onClick={
+                    rowClickHandler
+                      ? () => rowClickHandler(singleCompany.id as string)
+                      : undefined
+                  }
+                >
                   {headings.map((singleHeading, index) => {
                     const currentHeading = singleHeading.key;
                     return (
