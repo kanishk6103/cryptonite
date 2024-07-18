@@ -11,13 +11,15 @@ const Chip = ({ value }: { value: number }) => {
           : "bg-green-200 text-green-600 dark:bg-green-300"
       }`}
     >
-      <Image
-        src={value < 0 ? downArrow : value === 0 ? "" : upArrow}
-        className="opacity-50"
-        alt="alt"
-        width={8}
-        height={8}
-      />
+      {value !== 0 && (
+        <Image
+          src={value < 0 ? downArrow : upArrow}
+          className="opacity-50"
+          alt="alt"
+          width={8}
+          height={8}
+        />
+      )}
       {value}%
     </div>
   );

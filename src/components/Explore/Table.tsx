@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Company } from "@/types/companyHoldings";
-
+import { Coin, Company } from "@/types/companyHoldings";
+import Image from "next/image";
+import Chip from "../Chip";
 const Table = ({
   headings,
   itemsPerPage,
@@ -12,7 +13,7 @@ const Table = ({
   rowClickHandler: ((id: string) => void) | null;
 }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [data, setData] = useState<Company[]>([]);
+  const [data, setData] = useState<Coin[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   const fetchData = async (page: number) => {
@@ -82,12 +83,48 @@ const Table = ({
                   >
                     {headings.map((singleHeading, index) => {
                       const currentHeading = singleHeading.key;
+                      const isName = singleHeading.heading === "Name";
+                      const isChange =
+                        singleHeading.heading === "ATH Change" ||
+                        singleHeading.heading === "ATL Change" ||
+                        singleHeading.heading === "Today";
+                      const isRank = singleHeading.heading === "Rank";
                       return (
                         <td
                           className={`p-6 ${index === 0 ? "font-medium" : ""}`}
                           key={index}
                         >
-                          {singleCompany[currentHeading]}
+                          {isName ? (
+                            <div className="flex gap-2">
+                              <Image
+                                src={singleCompany?.image as string}
+                                alt="coin-image"
+                                width={20}
+                                height={16}
+                              />
+                              {singleCompany[currentHeading]}
+                            </div>
+                          ) : isChange ? (
+                            <Chip
+                              value={parseInt(
+                                singleCompany[currentHeading] as string
+                              )}
+                            />
+                          ) : isRank ? (
+                            <div className="text-sm font-extralight">
+                              #
+                              <span className="text-base font-medium">
+                                {singleCompany[currentHeading]}
+                              </span>
+                            </div>
+                          ) : (
+                            <div className="text-sm font-extralight flex gap-1 items-end">
+                              ₹
+                              <span className="text-base font-medium">
+                                {singleCompany[currentHeading]}
+                              </span>
+                            </div>
+                          )}
                         </td>
                       );
                     })}

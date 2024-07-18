@@ -12,6 +12,7 @@
     "@reduxjs/toolkit": "^2.2.6",
     "axios": "^1.7.2",
     "chartjs": "^0.3.24",
+    "d3": "^7.9.0",
     "dotenv": "^16.4.5",
     "next": "14.2.5",
     "next-themes": "^0.3.0",
@@ -21,6 +22,7 @@
     "react-redux": "^9.1.2"
   },
   "devDependencies": {
+    "@types/d3": "^7.4.3",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

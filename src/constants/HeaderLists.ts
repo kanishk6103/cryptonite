@@ -12,11 +12,11 @@ export const coinListHeadings = [
     key: "name",
   },
   {
-    heading: "Market Cap",
+    heading: "Market Cap(₹)",
     key: "market_cap",
   },
   {
-    heading: "Current Price",
+    heading: "Current Price(₹)",
     key: "current_price",
   },
   {

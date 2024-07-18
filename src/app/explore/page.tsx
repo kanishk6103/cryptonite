@@ -1,5 +1,5 @@
 "use server";
-import Table from "@/components/Table";
+import Table from "@/components/Explore/Table";
 import { coinListHeadings } from "@/constants/HeaderLists";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
@@ -12,7 +12,7 @@ const Page = async () => {
   };
 
   return (
-    <div className="">
+    <div className="px-16">
       <Suspense fallback={<Loading />}>
         <Table
           itemsPerPage={20}
