@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.6",
+    "axios": "^1.7.2",
     "chartjs": "^0.3.24",
     "dotenv": "^16.4.5",
     "next": "14.2.5",

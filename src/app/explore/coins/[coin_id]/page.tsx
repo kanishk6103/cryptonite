@@ -1,3 +1,8 @@
+import CoinPageHeader from "@/components/CoinPage/CoinPageHeader/CoinPageHeader";
+import Fundamentals from "@/components/CoinPage/Fundamentals/Fundamentals";
+import About from "@/components/CoinPage/About/About";
+import { Suspense } from "react";
+import Loading from "./loading";
 const getCoinData = async (id: string) => {
   try {
     const res = await fetch(`https://api.coingecko.com/api/v3/coins/${id}`, {
@@ -20,14 +25,30 @@ const getCoinData = async (id: string) => {
 const page = async ({ params }: { params: { coin_id: string } }) => {
   const coin_id = params.coin_id;
   const data = await getCoinData(coin_id);
+  if (!data) return <h1>Data is not defined for this coin!</h1>;
   console.log(data);
-  return data ? (
-    <div>
-      {/* <div>{params.coin_id}</div> */}
-      <div>{data?.name}</div>
+  return (
+    <div className="flex flex-col gap-8 px-24">
+      <div>
+        <Suspense fallback={<Loading />}>
+          {<CoinPageHeader data={data} />}
+        </Suspense>
+      </div>
+      <div>
+        <Suspense fallback={<Loading />}>
+          <Fundamentals data={data} />
+        </Suspense>
+      </div>
+      <hr />
+      <div>
+        <Suspense fallback={<Loading />}>
+          <About
+            heading={data?.localization?.en}
+            description={data?.description?.en}
+          />
+        </Suspense>
+      </div>
     </div>
-  ) : (
-    <h1>Loading...</h1>
   );
 };
 

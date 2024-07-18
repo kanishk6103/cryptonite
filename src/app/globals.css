@@ -21,3 +21,12 @@
     text-wrap: balance;
   }
 }
+
+.mainHeading {
+  font-weight: 900;
+  font-size: x-large;
+}
+
+a {
+  text-decoration: underline;
+}

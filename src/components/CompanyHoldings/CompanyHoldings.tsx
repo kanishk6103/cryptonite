@@ -1,5 +1,5 @@
 "use client";
-import Table from "@/components/Table";
+import Table from "./Table";
 import { companyHeaderList } from "@/constants/HeaderLists";
 import { Company, HoldingsData } from "@/types/companyHoldings";
 import { cache } from "react";
@@ -32,7 +32,7 @@ const CompanyHoldings = () => {
   }, []);
   return (
     <>
-      <h1 className="font-black text-2xl">Public Company Holdings</h1>
+      <h1 className="mainHeading">Public Company Holdings</h1>
       <div className="flex flex-col">
         <div className="w-full flex justify-between">
           {companyData ? (
@@ -87,8 +87,9 @@ const CompanyHoldings = () => {
         {companyData ? (
           <Table
             headings={companyHeaderList}
-            data={companyData?.companies}
+            data={companyData?.companies as any}
             itemsPerPage={5}
+            rowClickHandler={null}
           />
         ) : (
           <h1>Loading Table data...</h1>

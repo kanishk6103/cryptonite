@@ -8,15 +8,31 @@ export const companyHeaderList = [
 
 export const coinListHeadings = [
   {
-    heading: "ID",
-    key: "id",
-  },
-  {
     heading: "Name",
     key: "name",
   },
   {
-    heading: "Symbol",
-    key: "symbol",
+    heading: "Market Cap",
+    key: "market_cap",
+  },
+  {
+    heading: "Current Price",
+    key: "current_price",
+  },
+  {
+    heading: "ATH Change",
+    key: "ath_change_percentage",
+  },
+  {
+    heading: "ATL Change",
+    key: "atl_change_percentage",
+  },
+  {
+    heading: "Today",
+    key: "price_change_percentage_24h",
+  },
+  {
+    heading: "Rank",
+    key: "market_cap_rank",
   },
 ];
