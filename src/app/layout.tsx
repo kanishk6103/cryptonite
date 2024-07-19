@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Providers from "./storeProvider";
+import RecentSearches from "@/components/RecentSearches";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -17,9 +18,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={`${inter.className} dark:bg-gray-900 mb-5`}>
         <Providers>
           <Header />
+          <RecentSearches />
           {children}
         </Providers>
       </body>

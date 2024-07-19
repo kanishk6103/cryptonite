@@ -29,13 +29,13 @@ const page = async ({ params }: { params: { coin_id: string } }) => {
   const data = await getCoinData(coin_id);
   if (!data) return <h1>Data is not defined for this coin!</h1>;
   return (
-    <div className="flex flex-col gap-8 px-12">
+    <div className="flex flex-col gap-5 px-12">
       <div className="px-12">
         <Suspense fallback={<Loading />}>
           {<CoinPageHeader data={data} />}
         </Suspense>
       </div>
-      <div className="">
+      <div className="w-max">
         <Suspense fallback={<Loading />}>
           <ChatContainer id={coin_id} />
         </Suspense>

@@ -11,7 +11,7 @@ const About = ({
         About <span className="font-normal">{heading}</span>
       </div>
       <div
-        className="text-sm text-justify"
+        className="text-sm text-justify leading-6"
         dangerouslySetInnerHTML={{ __html: description }}
       />
     </div>

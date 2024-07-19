@@ -7,7 +7,7 @@ const Header = () => {
         Coin<span className="font-light">Info</span>
       </div>
       <div className="w-full">
-        <SearchBar />
+        <SearchBar placeholder="Search a coin.." />
       </div>
       <div className="min-w-max cursor-pointer">
         <ThemeSwitch />

@@ -62,3 +62,9 @@ export interface LinePlotProps {
   marginBottom?: number;
   marginLeft?: number;
 }
+
+export interface coinType {
+  name: string;
+  symbol: string;
+  id: string;
+}

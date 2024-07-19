@@ -8,7 +8,7 @@ export default function LinePlot({
   width = 720,
   height = 400,
   marginTop = 20,
-  marginRight = 5,
+  marginRight = 0,
   marginBottom = 30,
   marginLeft = 105,
 }: LinePlotProps) {
@@ -114,14 +114,14 @@ export default function LinePlot({
       <svg
         ref={svgRef}
         width={width + marginLeft + marginRight}
-        height={height + marginBottom + marginTop}
+        height={height}
       >
         <g ref={gx} transform={`translate(0,${height - marginBottom})`} />
         <g ref={gy} transform={`translate(${marginLeft},0)`} />
         <path
           fill="none"
           stroke="currentColor"
-          strokeWidth="2"
+          strokeWidth="1"
           d={line(data) || ""}
         />
       </svg>

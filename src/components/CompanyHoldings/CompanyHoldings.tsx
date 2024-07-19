@@ -36,7 +36,7 @@ const CompanyHoldings = () => {
       <div className="flex flex-col">
         <div className="w-full flex justify-between">
           {companyData ? (
-            <div className="flex gap-8 w-full items-center my-5">
+            <div className="flex flex-col gap-2 w-full items-start justify-center my-5">
               <div className="flex gap-2">
                 <span className="font-semibold">Total Holdings: </span>
                 {companyData.total_holdings}

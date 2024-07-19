@@ -3,19 +3,19 @@ export const calculateTimestamp = (range: string) => {
   let fromTimestamp;
 
   switch (range) {
-    case "1 day":
+    case "1D":
       fromTimestamp = currentTimestamp - 86400; // 1 day in seconds
       break;
-    case "1 week":
+    case "1W":
       fromTimestamp = currentTimestamp - 7 * 86400; // 7 days in seconds
       break;
-    case "1 month":
+    case "1M":
       fromTimestamp = currentTimestamp - 30 * 86400; // 30 days in seconds
       break;
-    case "6 months":
+    case "6M":
       fromTimestamp = currentTimestamp - 6 * 30 * 86400; // 6 months in seconds
       break;
-    case "1 year":
+    case "1Y":
       fromTimestamp = currentTimestamp - 12 * 30 * 86400; // 1 year in seconds
       break;
     default:

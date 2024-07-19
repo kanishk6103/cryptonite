@@ -33,7 +33,7 @@ const ChatContainer = ({ id }: { id: string }) => {
     market_caps: [number, number][];
     total_volumes: [number, number][];
   } | null>(null);
-  const [range, setRange] = useState("1 month");
+  const [range, setRange] = useState("1M");
   const [type, setType] = useState<"prices" | "market_caps" | "total_volumes">(
     "prices"
   );
@@ -55,7 +55,7 @@ const ChatContainer = ({ id }: { id: string }) => {
   }, [data, type]);
 
   return (
-    <div className="w-max">
+    <div className="w-max border-2 rounded-lg mx-10 p-5">
       <div className="flex justify-end w-full">
         <div className="w-max gap-5 border-2 rounded-3xl px-2 py-1 text-xs">
           {typeButtonList.map((singleButton, index) => {
@@ -73,13 +73,15 @@ const ChatContainer = ({ id }: { id: string }) => {
         </div>
       </div>
       {typeData ? (
-        <div className="my-5">
+        <div className="my-2">
           <Suspense fallback={<h1>Loading...</h1>}>
             <Chart data={typeData} />
           </Suspense>
         </div>
       ) : (
-        <h1>Loading...</h1>
+        <div className="w-[830px] h-[450px] flex items-center justify-center text-xl font-semibold">
+          Loading...
+        </div>
       )}
       <div className="flex  items-center justify-center w-full">
         <div className="flex gap-5 border-2 rounded-3xl px-2 py-1 w-max text-xs">

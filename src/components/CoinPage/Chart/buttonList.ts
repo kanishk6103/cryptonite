@@ -1,18 +1,18 @@
 export const buttonList = [
   {
-    name: "1 day",
+    name: "1D",
   },
   {
-    name: "1 week",
+    name: "1W",
   },
   {
-    name: "1 month",
+    name: "1M",
   },
   {
-    name: "6 months",
+    name: "6M",
   },
   {
-    name: "1 year",
+    name: "1Y",
   },
 ];
 

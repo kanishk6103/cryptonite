@@ -11,7 +11,7 @@ const RangeButton = ({
     <button
       onClick={handler}
       className={`px-3 py-1 rounded-full ${
-        active ? "bg-blue-400 text-white" : "text-gray-500"
+        active ? "bg-blue-400 text-white" : "text-gray-500 dark:text-gray-100"
       }`}
     >
       {name}
