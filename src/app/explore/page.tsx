@@ -12,7 +12,7 @@ const Page = async () => {
   };
 
   return (
-    <div className="px-16">
+    <div className="px-5 flex-1">
       <Suspense fallback={<Loading />}>
         <Table
           itemsPerPage={20}

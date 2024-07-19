@@ -1,4 +1,3 @@
-// lib/features/coin/coinSlice.ts
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { coinType } from "@/types/companyHoldings";
 

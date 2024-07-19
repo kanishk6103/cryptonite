@@ -2,7 +2,6 @@ import Image from "next/image";
 import { upArrow, downArrow } from "../../../../public/exports";
 import Chip from "@/components/Chip";
 const CoinPageHeader = ({ data }: any) => {
-  console.log(data);
   const { name, image, market_data } = data;
   const { price_change_percentage_24h } = market_data;
   //   console.log(price_change_percentage_24h);

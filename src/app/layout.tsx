@@ -21,8 +21,10 @@ export default function RootLayout({
       <body className={`${inter.className} dark:bg-gray-900 mb-5`}>
         <Providers>
           <Header />
-          <RecentSearches />
-          {children}
+          <div className="flex justify-between w-full">
+            {children}
+            <RecentSearches />
+          </div>
         </Providers>
       </body>
     </html>
