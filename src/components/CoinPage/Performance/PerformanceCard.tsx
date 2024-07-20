@@ -41,7 +41,7 @@ const PerformanceCard = ({
             Range={"All time"}
           />
           <hr />
-          <div className="flex justify-evenly my-2">
+          <div className="flex flex-col lg:flex-row justify-evenly my-2">
             <div className="flex flex-col items-center gap-2 font-semibold p-3 border w-max rounded-xl my-4">
               1Y change <Chip value={year_change_percentage} />
             </div>

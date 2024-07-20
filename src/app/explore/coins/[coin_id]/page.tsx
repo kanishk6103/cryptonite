@@ -43,7 +43,7 @@ const page = async ({ params }: { params: { coin_id: string } }) => {
         </Suspense>
         <RecentSearches />
       </div>
-      <div className="px-12 flex w-full items-start">
+      <div className="px-12 flex flex-col lg:flex-row w-full items-start">
         <div className="w-1/2">
           <Suspense fallback={<Loading />}>
             <Fundamentals data={data} />
