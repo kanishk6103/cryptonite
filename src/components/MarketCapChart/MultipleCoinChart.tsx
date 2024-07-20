@@ -1,4 +1,9 @@
 "use client";
+
+import * as d3 from "d3";
+import { useRef, useEffect } from "react";
+import { coinIdList, coinIdListWithColors } from "./constants";
+
 interface CoinMarketCapData {
   coinID: string;
   marketCaps: [number, number][];
@@ -13,10 +18,6 @@ interface LinePlotProps {
   marginBottom?: number;
   marginLeft?: number;
 }
-
-import * as d3 from "d3";
-import { useRef, useEffect } from "react";
-import { coinIdList, coinIdListWithColors } from "./constants";
 
 interface CoinMarketCapData {
   coinID: string;
@@ -189,7 +190,7 @@ export default function LinePlot({
       <div className="flex gap-5 mt-2 text-sm">
         {coinIdListWithColors.map((singleCoin, index) => {
           return (
-            <div className="flex items-center mb-1">
+            <div className="flex items-center mb-1" key={index}>
               <svg width="10" height="10">
                 <circle cx="5" cy="5" r="5" fill={singleCoin.color} />
               </svg>

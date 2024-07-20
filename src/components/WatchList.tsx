@@ -5,7 +5,7 @@ import { AppState } from "@/lib/store";
 import { useRouter } from "next/navigation";
 import { clearSearchResults } from "@/lib/features/coin/searchSlice"; // make sure this action exists
 
-const RecentSearches = () => {
+const WatchList = () => {
   const [hydrated, setHydrated] = useState(false);
   const searchResults = useSelector((state: AppState) => state.search.results);
   const dispatch = useDispatch();
@@ -57,4 +57,4 @@ const RecentSearches = () => {
   );
 };
 
-export default RecentSearches;
+export default WatchList;

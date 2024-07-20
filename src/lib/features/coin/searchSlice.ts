@@ -34,7 +34,6 @@ const searchSlice = createSlice({
       state,
       action: PayloadAction<{ [key: string]: coinType }>
     ) => {
-      // state.results = Object.assign(state.results, action.payload);
       state.results = { ...state.results, ...action.payload };
       console.log(state.results);
       saveState(state);

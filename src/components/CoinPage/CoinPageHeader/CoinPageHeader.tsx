@@ -16,7 +16,7 @@ const CoinPageHeader = ({ data }: any) => {
       <div className="flex gap-2 my-5">
         <div className="px-5 font-semibold text-3xl flex gap-2 items-end">
           <span className="font-light text-xl">₹</span>
-          {market_data?.current_price?.inr}
+          {market_data?.current_price?.inr.toLocaleString("en-IN")}
         </div>
         <Chip value={price_change_percentage_24h} />
       </div>

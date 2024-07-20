@@ -9,7 +9,11 @@ import { searchResults } from "@/lib/features/coin/searchSlice";
 const SearchBar = ({ placeholder }: { placeholder: string }) => {
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState<coinType[]>([]);
+  const [isFocused, setIsFocused] = useState<boolean>(false);
   const coins = useSelector((state: AppState) => state.coins.coins);
+  const previouslySearched = useSelector(
+    (state: AppState) => state.search.results
+  );
   const dispatch = useDispatch();
   const router = useRouter();
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
@@ -46,6 +50,20 @@ const SearchBar = ({ placeholder }: { placeholder: string }) => {
     }, 300);
   };
 
+  const handleInputFocus = () => {
+    setIsFocused(true);
+
+    if (query.length === 0) {
+      setSuggestions(Object.values(previouslySearched).slice(0, 6));
+    }
+  };
+
+  const handleInputBlur = () => {
+    setTimeout(() => {
+      setIsFocused(false);
+    }, 200);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const matchingCoin = coins.find(
@@ -70,11 +88,13 @@ const SearchBar = ({ placeholder }: { placeholder: string }) => {
       <input
         type="text"
         value={query}
+        onFocus={handleInputFocus}
+        onBlur={handleInputBlur}
         onChange={handleInputChange}
         placeholder={placeholder}
         className="p-2 w-full text-gray-700 dark:text-gray-300 bg-transparent border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
-      {suggestions.length > 0 && (
+      {isFocused && suggestions.length > 0 && (
         <ul className="w-full mt-2 bg-white dark:bg-gray-700 rounded-md shadow-md absolute top-10 z-20">
           {suggestions.map((coin) => (
             <li

@@ -5,7 +5,7 @@ import ChatContainer from "@/components/CoinPage/Chart/ChatContainer";
 import { Suspense } from "react";
 import Loading from "./loading";
 import RecentSearches from "@/components/RecentSearches";
-
+import PerformanceCard from "@/components/CoinPage/Performance/PerformanceCard";
 const getCoinData = async (id: string) => {
   try {
     const res = await fetch(`https://api.coingecko.com/api/v3/coins/${id}`, {
@@ -28,6 +28,7 @@ const getCoinData = async (id: string) => {
 const page = async ({ params }: { params: { coin_id: string } }) => {
   const coin_id = params.coin_id;
   const data = await getCoinData(coin_id);
+  console.log(data);
   if (!data) return <h1>Data is not defined for this coin!</h1>;
   return (
     <div className="flex flex-col gap-5 px-5 flex-1">
@@ -42,10 +43,22 @@ const page = async ({ params }: { params: { coin_id: string } }) => {
         </Suspense>
         <RecentSearches />
       </div>
-      <div className="px-12">
-        <Suspense fallback={<Loading />}>
-          <Fundamentals data={data} />
-        </Suspense>
+      <div className="px-12 flex w-full items-start">
+        <div className="w-1/2">
+          <Suspense fallback={<Loading />}>
+            <Fundamentals data={data} />
+          </Suspense>
+        </div>
+        <PerformanceCard
+          today_high={data?.market_data?.high_24h?.inr}
+          today_low={data?.market_data?.low_24h?.inr}
+          current_price={data?.market_data?.current_price?.inr}
+          year_change_percentage={data?.market_data?.price_change_percentage_1y}
+          all_time_high={data?.market_data?.ath?.inr}
+          all_time_low={data?.market_data?.atl?.inr}
+          all_time_high_date={data?.market_data?.ath_date?.inr}
+          all_time_low_date={data?.market_data?.atl_date?.inr}
+        />
       </div>
       <hr className="px-12" />
       <div className="px-12">

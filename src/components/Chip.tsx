@@ -5,10 +5,10 @@ const Chip = ({ value }: { value: number }) => {
     <div
       className={`flex gap-1 w-max p-2 text-sm font-semibold rounded-lg ${
         value < 0
-          ? "bg-red-200 text-red-700 dark:bg-red-300"
+          ? "bg-red-200 text-red-700 dark:text-red-200 dark:bg-red-600"
           : value === 0
-          ? "bg-yellow-200 text-yellow-500 dark:bg-yellow-400"
-          : "bg-green-200 text-green-600 dark:bg-green-300"
+          ? "bg-yellow-200 text-yellow-500 dark:text-yellow-200 dark:bg-yellow-600"
+          : "bg-green-200 text-green-600 dark:text-green-200 dark:bg-green-700"
       }`}
     >
       {value !== 0 && (
