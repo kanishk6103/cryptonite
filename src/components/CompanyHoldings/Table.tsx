@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Company } from "@/types/companyHoldings";
 
 const Table = ({
@@ -19,6 +19,10 @@ const Table = ({
   const currentData = data.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [data]);
 
   return (
     <div className="overflow-x-auto border rounded-lg">
@@ -60,7 +64,7 @@ const Table = ({
                         className={`p-6 ${index === 0 ? "font-medium" : ""}`}
                         key={index}
                       >
-                        {singleCompany[currentHeading].toLocaleString('en-IN')}
+                        {singleCompany[currentHeading].toLocaleString("en-IN")}
                       </td>
                     );
                   })}

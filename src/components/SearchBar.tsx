@@ -42,6 +42,21 @@ const SearchBar = ({ placeholder }: { placeholder: string }) => {
           .filter((coin) =>
             coin.name.toLowerCase().includes(value.toLowerCase())
           )
+          .sort((a, b) => {
+            const aStartsWith = a.name
+              .toLowerCase()
+              .startsWith(value.toLowerCase());
+
+            const bStartsWith = b.name
+              .toLowerCase()
+              .startsWith(value.toLowerCase());
+
+            if (aStartsWith && !bStartsWith) return -1;
+
+            if (!aStartsWith && bStartsWith) return 1;
+
+            return a.name.localeCompare(b.name);
+          })
           .slice(0, 6);
         setSuggestions(filteredCoins);
       } else {
