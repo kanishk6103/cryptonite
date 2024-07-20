@@ -1,11 +1,10 @@
 "use client";
 import Table from "./Table";
 import { companyHeaderList } from "@/constants/HeaderLists";
-import { Company, HoldingsData } from "@/types/companyHoldings";
-import { cache } from "react";
+import { HoldingsData } from "@/types/companyHoldings";
 import { useState, useEffect } from "react";
 
-const getData = cache(async (id: string) => {
+const getData = async (id: string) => {
   const res = await fetch(
     `https://api.coingecko.com/api/v3/companies/public_treasury/${id}`,
     {
@@ -18,7 +17,7 @@ const getData = cache(async (id: string) => {
     throw new Error("Failed to fetch data");
   }
   return res.json();
-});
+};
 
 const CompanyHoldings = () => {
   const [buttonState, setButtonState] = useState<string>("bitcoin");
@@ -36,18 +35,18 @@ const CompanyHoldings = () => {
       <div className="flex flex-col">
         <div className="w-full flex justify-between">
           {companyData ? (
-            <div className="flex flex-col gap-2 w-full items-start justify-center my-5">
+            <div className="flex flex-col xl:flex-row xl:gap-8 gap-2 w-full items-start xl:justify-normal justify-center my-5">
               <div className="flex gap-2">
                 <span className="font-semibold">Total Holdings: </span>
-                {companyData.total_holdings}
+                {companyData.total_holdings.toLocaleString('en-IN')}
               </div>
               <div className="flex gap-2">
-                <span className="font-semibold">Total Value (USD):</span>{" "}
-                {companyData.total_value_usd}
+                <span className="font-semibold">Total Value:</span>{" "}
+                ${companyData.total_value_usd.toLocaleString('en-IN')}
               </div>
               <div className="flex gap-2">
                 <span className="font-semibold">Market Cap Dominance:</span>{" "}
-                {companyData.market_cap_dominance}
+                {companyData.market_cap_dominance.toLocaleString('en-IN')}
               </div>
             </div>
           ) : (

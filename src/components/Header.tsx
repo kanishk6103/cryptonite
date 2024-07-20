@@ -12,7 +12,10 @@ const Header = () => {
       <div className="w-full">
         <SearchBar placeholder="Search a coin.." />
       </div>
-      <div className="min-w-max cursor-pointer">
+      <div className="min-w-max cursor-pointer flex gap-5 items-center">
+        <Link href={"/explore"} className="no-underline">
+          Explore
+        </Link>
         <ThemeSwitch />
       </div>
     </div>

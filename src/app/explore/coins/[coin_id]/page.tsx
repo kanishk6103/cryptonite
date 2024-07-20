@@ -4,6 +4,7 @@ import About from "@/components/CoinPage/About/About";
 import ChatContainer from "@/components/CoinPage/Chart/ChatContainer";
 import { Suspense } from "react";
 import Loading from "./loading";
+import RecentSearches from "@/components/RecentSearches";
 
 const getCoinData = async (id: string) => {
   try {
@@ -35,10 +36,11 @@ const page = async ({ params }: { params: { coin_id: string } }) => {
           {<CoinPageHeader data={data} />}
         </Suspense>
       </div>
-      <div className="w-max">
+      <div className="w-full flex">
         <Suspense fallback={<Loading />}>
           <ChatContainer id={coin_id} />
         </Suspense>
+        <RecentSearches />
       </div>
       <div className="px-12">
         <Suspense fallback={<Loading />}>

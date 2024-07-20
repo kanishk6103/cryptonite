@@ -121,7 +121,7 @@ const Table = ({
                             <div className="text-sm font-extralight flex gap-1 items-end">
                               ₹
                               <span className="text-base font-medium">
-                                {singleCompany[currentHeading]}
+                                {singleCompany[currentHeading]?.toLocaleString("en-IN")}
                               </span>
                             </div>
                           )}

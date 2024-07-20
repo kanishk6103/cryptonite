@@ -29,7 +29,7 @@ const RecentSearches = () => {
   };
 
   return (
-    <div className="recently-searched-coins w-1/5 px-5 border rounded-lg float-right mx-5 h-max">
+    <div className="w-full px-5 border rounded-lg float-right mx-5 h-max">
       <div className="flex justify-between items-center">
         <h2 className="text-xl font-bold my-5">Recently Searches</h2>
         <button

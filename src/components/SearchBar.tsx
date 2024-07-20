@@ -75,7 +75,7 @@ const SearchBar = ({ placeholder }: { placeholder: string }) => {
         className="p-2 w-full text-gray-700 dark:text-gray-300 bg-transparent border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
       {suggestions.length > 0 && (
-        <ul className="w-full mt-2 bg-white dark:bg-gray-700 rounded-md shadow-md absolute top-10">
+        <ul className="w-full mt-2 bg-white dark:bg-gray-700 rounded-md shadow-md absolute top-10 z-20">
           {suggestions.map((coin) => (
             <li
               key={coin.id}

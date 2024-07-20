@@ -9,7 +9,7 @@ const ListItem = ({ heading, data, currency }: ListItemProps) => {
       <div>{heading}</div>
       <div className="font-semibold">
         {currency && <span className="font-light text-xs"> ₹ </span>}
-        {data ? data : "-"}
+        {data ? data.toLocaleString() : "-"}
       </div>
     </div>
   );

@@ -14,11 +14,9 @@ const Table = ({
   rowClickHandler: ((id: string) => void) | null;
 }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  // items we want on one page with pagination
-  // Here I have calculated the array items that must be at that particular page, from x index to y index
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentData = data.slice(indexOfFirstItem, indexOfLastItem); // taking the required slice for required page
+  const currentData = data.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
@@ -62,7 +60,7 @@ const Table = ({
                         className={`p-6 ${index === 0 ? "font-medium" : ""}`}
                         key={index}
                       >
-                        {singleCompany[currentHeading]}
+                        {singleCompany[currentHeading].toLocaleString('en-IN')}
                       </td>
                     );
                   })}
@@ -74,15 +72,15 @@ const Table = ({
       </div>
       <div className="flex justify-between items-center p-4 w-full lg:w-1/3 m-auto">
         <button
-          onClick={() => paginate(currentPage - 1)} // Previous button to set the page number to the previous one
-          disabled={currentPage === 1} // previous won't be available if we are on the first page
+          onClick={() => paginate(currentPage - 1)}
+          disabled={currentPage === 1}
           className="px-4 py-1 rounded-lg disabled:opacity-50 border"
         >
           {`<`}
         </button>
         <span>Page {currentPage}</span>
         <button
-          onClick={() => paginate(currentPage + 1)} // moving to the next page
+          onClick={() => paginate(currentPage + 1)}
           disabled={indexOfLastItem >= data.length}
           className="px-4 py-1 rounded-lg disabled:opacity-50 border"
         >

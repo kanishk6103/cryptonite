@@ -55,7 +55,7 @@ const ChatContainer = ({ id }: { id: string }) => {
   }, [data, type]);
 
   return (
-    <div className="w-max border-2 rounded-lg mx-10 p-5">
+    <div className="border-2 rounded-lg mx-10 p-5 flex-1">
       <div className="flex justify-end w-full">
         <div className="w-max gap-5 border-2 rounded-3xl px-2 py-1 text-xs">
           {typeButtonList.map((singleButton, index) => {
