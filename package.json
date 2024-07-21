@@ -11,7 +11,6 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.6",
     "axios": "^1.7.2",
-    "chartjs": "^0.3.24",
     "d3": "^7.9.0",
     "dotenv": "^16.4.5",
     "framer-motion": "^11.3.7",

@@ -137,7 +137,7 @@ export default function LinePlot({
         const mouse = d3.pointer(event, svg.node());
         const mouseX = mouse[0];
         const xDate = x.invert(mouseX);
-        const index = bisectDate(data[0].marketCaps, xDate, 1); // assuming all data has the same date structure
+        const index = bisectDate(data[0].marketCaps, xDate, 1);
         const d0 = data[0].marketCaps[index - 1];
         const d1 = data[0].marketCaps[index];
         const d =
