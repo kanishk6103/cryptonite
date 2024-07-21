@@ -10,7 +10,7 @@ const Fundamentals = ({ data }: any) => {
       <div>
         {fields(market_cap, market_data).map((singleField, index) => {
           return (
-            <ul className="w-[85%] flex justify-between" key={index}>
+            <ul className="w-full lg:w-[85%] flex justify-between" key={index}>
               <li className="w-full p-3 border-b">
                 <ListItem
                   heading={singleField.heading}

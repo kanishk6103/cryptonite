@@ -31,7 +31,7 @@ const WatchList = () => {
   };
 
   return (
-    <div className="w-full px-5 border rounded-lg float-right m-5 h-max">
+    <div className="w-full px-5 border rounded-lg float-right m-5 h-max max-w-[720px]">
       <div className="flex justify-between items-center">
         <h2 className="text-xl font-bold my-5">Watch List</h2>
         <button

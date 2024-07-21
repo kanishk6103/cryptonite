@@ -107,10 +107,10 @@ const SearchBar = ({ placeholder }: { placeholder: string }) => {
         onBlur={handleInputBlur}
         onChange={handleInputChange}
         placeholder={placeholder}
-        className="p-2 w-full text-gray-700 dark:text-gray-300 bg-transparent border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="p-2 w-full text-gray-700 dark:text-gray-300 bg-transparent border border-gray-300 min-w-[200px] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
       {isFocused && suggestions.length > 0 && (
-        <ul className="w-full mt-2 bg-white dark:bg-gray-700 rounded-md shadow-md absolute top-10 z-20">
+        <ul className="w-full min-w-[200px] mt-2 bg-white dark:bg-gray-700 rounded-md shadow-md absolute top-10 z-20" key={Date.now()}>
           {suggestions.map((coin) => (
             <li
               key={coin.id}

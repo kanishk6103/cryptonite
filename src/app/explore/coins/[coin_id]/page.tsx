@@ -31,7 +31,7 @@ const getCoinData = async (id: string) => {
 const CoinPage = async ({ params }: { params: { coin_id: string } }) => {
   const { coin_id } = params;
   const data = await getCoinData(coin_id);
-
+  // console.log(data);
   if (!data) {
     return (
       <div className="w-full h-full flex items-center justify-center text-lg font-semibold">
@@ -47,17 +47,17 @@ const CoinPage = async ({ params }: { params: { coin_id: string } }) => {
           <CoinPageHeader data={data} />
         </Suspense>
       </div>
-      <div className="w-full flex">
+      <div className="w-full flex flex-col lg:flex-row">
         <Suspense fallback={<Loading />}>
           <ChartContainer id={coin_id} />
         </Suspense>
-        <div>
+        <div className="flex lg:flex-col items-start lg:justify-start justify-center m-5 w-full">
           <RecentSearches />
           <WatchList />
         </div>
       </div>
       <div className="px-12 flex flex-col lg:flex-row w-full items-start">
-        <div className="w-1/2">
+        <div className="w-full lg:w-1/2">
           <Suspense fallback={<Loading />}>
             <Fundamentals data={data} />
           </Suspense>

@@ -34,13 +34,26 @@ export default function LinePlot({
 
   useEffect(() => {
     if (gx.current) {
-      d3.select(gx.current).call(d3.axisBottom(x));
+      // d3.select(gx.current).call(d3.axisBottom(x));
+      d3.select(gx.current).call(d3.axisBottom(x).ticks(6));
+
+      d3.select(gx.current).selectAll(".tick line").attr("stroke", "#d1d5db");
+
+      d3.select(gx.current).selectAll(".tick text").attr("fill", "#6b7280");
+
+      d3.select(gx.current).select(".domain").attr("stroke", "#d1d5db");
     }
   }, [x]);
 
   useEffect(() => {
     if (gy.current) {
-      d3.select(gy.current).call(d3.axisLeft(y));
+      d3.select(gy.current).call(d3.axisLeft(y).ticks(5));
+
+      d3.select(gy.current).selectAll(".tick line").attr("stroke", "#d1d5db");
+
+      d3.select(gy.current).selectAll(".tick text").attr("fill", "#6b7280");
+
+      d3.select(gy.current).select(".domain").attr("stroke", "#d1d5db");
     }
   }, [y]);
 
@@ -86,9 +99,9 @@ export default function LinePlot({
 
         tooltip
           .html(
-            `Date: ${d3.utcFormat("%B %d, %Y")(new Date(d[0]))}<br>Value: ₹${
-              d[1].toLocaleString('en-IN')
-            }`
+            `Date: ${d3.utcFormat("%B %d, %Y")(
+              new Date(d[0])
+            )}<br>Value: ₹${d[1].toLocaleString("en-IN")}`
           )
           .style("left", `${mouse[0] + marginLeft + 10}px`)
           .style("top", `${mouse[1] + marginTop - 28}px`);
@@ -110,7 +123,7 @@ export default function LinePlot({
   ]);
 
   return (
-    <div style={{ position: "relative" }}>
+    <div className="relative w-max">
       <svg
         ref={svgRef}
         width={width + marginLeft + marginRight}
@@ -126,7 +139,7 @@ export default function LinePlot({
         />
       </svg>
       <div
-        className="absolute text-center w-max h-max p-2 font-medium text-sm bg-black text-white rounded-md pointer-events-none opacity-0"
+        className="absolute shadow-lg text-center w-max h-max p-2 font-medium text-sm bg-black text-white rounded-md pointer-events-none opacity-0"
         ref={tooltipRef}
       ></div>
     </div>

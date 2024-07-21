@@ -21,7 +21,7 @@ const PerformanceCard = ({
   all_time_low_date: Date;
 }) => {
   return (
-    <div className="py-2 my-2 w-1/2">
+    <div className="py-2 my-2 w-full lg:w-1/2">
       <div className="mainHeading my-2">Performance</div>
       <div>
         <div>

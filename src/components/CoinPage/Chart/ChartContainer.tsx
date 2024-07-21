@@ -4,6 +4,8 @@ import Chart from "./Chart";
 import { calculateTimestamp } from "@/utils/calculateTimestamp";
 import { buttonList, typeButtonList } from "./buttonList";
 import RangeButton from "./RangeButton";
+import pubSub from "../utils/PubSub";
+import useInterval from "../utils/useInterval";
 
 const getCoinChartData = async (id: string, from: number, to: number) => {
   try {
@@ -53,8 +55,28 @@ const ChartContainer = ({ id }: { id: string }) => {
     }
   }, [data, type]);
 
+  useEffect(() => {
+    const handleDataUpdate = (updatedData: any) => {
+      setData(updatedData);
+    };
+
+    pubSub.subscribe("data-update", handleDataUpdate);
+
+    return () => {
+      pubSub.unsubscribe("data-update", handleDataUpdate);
+    };
+  }, [type]);
+
+  useInterval(async () => {
+    const { from, to } = calculateTimestamp(range);
+
+    const updatedData = await getCoinChartData(id, from, to);
+
+    pubSub.publish("data-update", updatedData);
+  }, 60000);
+
   return (
-    <div className="border-2 rounded-lg mx-10 p-5 flex-1">
+    <div className="border-2 rounded-lg p-5 w-max ml-10">
       <div className="flex justify-end w-full">
         <div className="w-max gap-5 border-2 rounded-3xl px-2 py-1 text-xs">
           {typeButtonList.map((singleButton, index) => (
@@ -70,11 +92,11 @@ const ChartContainer = ({ id }: { id: string }) => {
         </div>
       </div>
       {typeData ? (
-        <div className="my-2">
+        <div className="my-2 w-max">
           <Chart data={typeData} />
         </div>
       ) : (
-        <div className="w-[830px] h-[450px] flex items-center justify-center text-xl font-semibold">
+        <div className="w-full h-full flex items-center justify-center text-xl font-semibold">
           Loading...
         </div>
       )}
