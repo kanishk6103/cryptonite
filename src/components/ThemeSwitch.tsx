@@ -7,7 +7,6 @@ import Image from "next/image";
 
 export default function ThemeSwitch() {
   const [mounted, setMounted] = useState(false);
-  // const { setTheme, resolvedTheme } = useTheme();
   const { theme, setTheme } = useTheme();
 
   useEffect(() => setMounted(true), []);
@@ -21,16 +20,18 @@ export default function ThemeSwitch() {
         setTheme("light");
         break;
       default:
-        break;
+        setTheme("light"); // Default to light if theme is undefined
     }
   };
 
   const toggleTheme = () => {
     //@ts-ignore
-    if (!document.startViewTransition) switchTheme();
-
-    //@ts-ignore
-    document.startViewTransition(switchTheme);
+    if (!document.startViewTransition) {
+      switchTheme();
+    } else {
+      //@ts-ignore
+      document.startViewTransition(switchTheme);
+    }
   };
 
   if (!mounted) {
@@ -54,4 +55,6 @@ export default function ThemeSwitch() {
   if (theme === "light") {
     return <FiMoon onClick={toggleTheme} />;
   }
+
+  return <FiMoon onClick={toggleTheme} />;
 }
