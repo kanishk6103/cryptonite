@@ -49,7 +49,9 @@ const Table = ({
     <div className="overflow-x-auto border rounded-lg">
       <div className="min-h-[440px] flex flex-col justify-between">
         {loading ? (
-          <div>Loading...</div>
+          <div className="w-full h-full flex items-center justify-center text-lg font-semibold">
+            Loading...
+          </div>
         ) : (
           <table className="w-full text-sm text-left rtl:text-right">
             <thead className="text-xs uppercase bg-gray-5">
@@ -121,7 +123,9 @@ const Table = ({
                             <div className="text-sm font-extralight flex gap-1 items-end">
                               ₹
                               <span className="text-base font-medium">
-                                {singleCompany[currentHeading]?.toLocaleString("en-IN")}
+                                {singleCompany[currentHeading]?.toLocaleString(
+                                  "en-IN"
+                                )}
                               </span>
                             </div>
                           )}

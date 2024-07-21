@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import coinReducer from "./features/coin/coinSlice";
 import searchSlice from "./features/coin/searchSlice";
+import watchListSlice from "./features/coin/watchListSlice";
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       coins: coinReducer,
       search: searchSlice,
+      watchList: watchListSlice,
     },
   });
 };

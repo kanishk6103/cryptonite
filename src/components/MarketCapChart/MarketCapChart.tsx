@@ -48,7 +48,13 @@ const MarketCapChartContainer = async ({
   //   console.log(marketCapData);
   return (
     <div>
-      <MultipleCoinChart data={marketCapData} />
+      {marketCapData ? (
+        <MultipleCoinChart data={marketCapData} />
+      ) : (
+        <div className="w-full h-full flex items-center justify-center text-lg font-semibold">
+          Loading...
+        </div>
+      )}
     </div>
   );
 };

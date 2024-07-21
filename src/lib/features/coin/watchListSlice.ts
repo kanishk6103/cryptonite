@@ -42,8 +42,7 @@ const watchListSlice = createSlice({
       state,
       action: PayloadAction<{ [key: string]: coinType }>
     ) => {
-      state.results = { ...state.results, ...action.payload };
-      console.log(state.results);
+     // remove item logic
       saveState(state);
     },
     clearWatchList: (state) => {

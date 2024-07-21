@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { AppState } from "@/lib/store";
 import { useRouter } from "next/navigation";
-import { clearSearchResults } from "@/lib/features/coin/searchSlice"; // make sure this action exists
+import { clearWatchList } from "@/lib/features/coin/watchListSlice";
 
 const WatchList = () => {
   const [hydrated, setHydrated] = useState(false);
-  const searchResults = useSelector((state: AppState) => state.search.results);
+  const watchListItems = useSelector(
+    (state: AppState) => state.watchList.results
+  );
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -24,14 +26,14 @@ const WatchList = () => {
   };
 
   const handleClearHistory = () => {
-    dispatch(clearSearchResults());
-    localStorage.removeItem("searchResults");
+    dispatch(clearWatchList());
+    localStorage.removeItem("watchListItems");
   };
 
   return (
-    <div className="w-full px-5 border rounded-lg float-right mx-5 h-max">
+    <div className="w-full px-5 border rounded-lg float-right m-5 h-max">
       <div className="flex justify-between items-center">
-        <h2 className="text-xl font-bold my-5">Recently Searches</h2>
+        <h2 className="text-xl font-bold my-5">Watch List</h2>
         <button
           className="text-red-500 hover:underline pl-5 text-sm"
           onClick={handleClearHistory}
@@ -40,7 +42,7 @@ const WatchList = () => {
         </button>
       </div>
       <ul className="flex flex-col gap-5 w-full my-5">
-        {Object.values(searchResults).map((coin) => (
+        {Object.values(watchListItems).map((coin) => (
           <div key={coin.id}>
             <li
               className="cursor-pointer hover:underline my-2 w-full flex items-center justify-between text-lg"

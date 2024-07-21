@@ -1,11 +1,13 @@
 import CoinPageHeader from "@/components/CoinPage/CoinPageHeader/CoinPageHeader";
 import Fundamentals from "@/components/CoinPage/Fundamentals/Fundamentals";
 import About from "@/components/CoinPage/About/About";
-import ChatContainer from "@/components/CoinPage/Chart/ChatContainer";
+import ChartContainer from "@/components/CoinPage/Chart/ChartContainer";
 import { Suspense } from "react";
 import Loading from "./loading";
 import RecentSearches from "@/components/RecentSearches";
 import PerformanceCard from "@/components/CoinPage/Performance/PerformanceCard";
+import WatchList from "@/components/WatchList";
+
 const getCoinData = async (id: string) => {
   try {
     const res = await fetch(`https://api.coingecko.com/api/v3/coins/${id}`, {
@@ -22,26 +24,37 @@ const getCoinData = async (id: string) => {
     return res.json();
   } catch (error) {
     console.error(error);
+    return null;
   }
 };
 
-const page = async ({ params }: { params: { coin_id: string } }) => {
-  const coin_id = params.coin_id;
+const CoinPage = async ({ params }: { params: { coin_id: string } }) => {
+  const { coin_id } = params;
   const data = await getCoinData(coin_id);
-  console.log(data);
-  if (!data) return <h1>Data is not defined for this coin!</h1>;
+
+  if (!data) {
+    return (
+      <div className="w-full h-full flex items-center justify-center text-lg font-semibold">
+        Data is not defined for this coin!
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-5 px-5 flex-1">
       <div className="px-12">
         <Suspense fallback={<Loading />}>
-          {<CoinPageHeader data={data} />}
+          <CoinPageHeader data={data} />
         </Suspense>
       </div>
       <div className="w-full flex">
         <Suspense fallback={<Loading />}>
-          <ChatContainer id={coin_id} />
+          <ChartContainer id={coin_id} />
         </Suspense>
-        <RecentSearches />
+        <div>
+          <RecentSearches />
+          <WatchList />
+        </div>
       </div>
       <div className="px-12 flex flex-col lg:flex-row w-full items-start">
         <div className="w-1/2">
@@ -73,4 +86,4 @@ const page = async ({ params }: { params: { coin_id: string } }) => {
   );
 };
 
-export default page;
+export default CoinPage;

@@ -1,10 +1,9 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Chart from "./Chart";
 import { calculateTimestamp } from "@/utils/calculateTimestamp";
 import { buttonList, typeButtonList } from "./buttonList";
 import RangeButton from "./RangeButton";
-import { Suspense } from "react";
 
 const getCoinChartData = async (id: string, from: number, to: number) => {
   try {
@@ -27,7 +26,7 @@ const getCoinChartData = async (id: string, from: number, to: number) => {
   }
 };
 
-const ChatContainer = ({ id }: { id: string }) => {
+const ChartContainer = ({ id }: { id: string }) => {
   const [data, setData] = useState<{
     prices: [number, number][];
     market_caps: [number, number][];
@@ -38,15 +37,15 @@ const ChatContainer = ({ id }: { id: string }) => {
     "prices"
   );
   const [typeData, setTypeData] = useState<[number, number][] | null>(null);
+
   useEffect(() => {
     const fetchData = async () => {
       const { from, to } = calculateTimestamp(range);
-      getCoinChartData(id, from, to).then((data) => {
-        setData(data);
-      });
+      const data = await getCoinChartData(id, from, to);
+      setData(data);
     };
     fetchData();
-  }, [range]);
+  }, [id, range]);
 
   useEffect(() => {
     if (data) {
@@ -58,49 +57,43 @@ const ChatContainer = ({ id }: { id: string }) => {
     <div className="border-2 rounded-lg mx-10 p-5 flex-1">
       <div className="flex justify-end w-full">
         <div className="w-max gap-5 border-2 rounded-3xl px-2 py-1 text-xs">
-          {typeButtonList.map((singleButton, index) => {
-            return (
-              <RangeButton
-                name={singleButton.name}
-                active={singleButton.path === type}
-                handler={() => {
-                  setType(singleButton.path);
-                }}
-                key={index}
-              />
-            );
-          })}
+          {typeButtonList.map((singleButton, index) => (
+            <RangeButton
+              name={singleButton.name}
+              active={singleButton.path === type}
+              handler={() => {
+                setType(singleButton.path);
+              }}
+              key={index}
+            />
+          ))}
         </div>
       </div>
       {typeData ? (
         <div className="my-2">
-          <Suspense fallback={<h1>Loading...</h1>}>
-            <Chart data={typeData} />
-          </Suspense>
+          <Chart data={typeData} />
         </div>
       ) : (
         <div className="w-[830px] h-[450px] flex items-center justify-center text-xl font-semibold">
           Loading...
         </div>
       )}
-      <div className="flex  items-center justify-center w-full">
+      <div className="flex items-center justify-center w-full">
         <div className="flex gap-5 border-2 rounded-3xl px-2 py-1 w-max text-xs">
-          {buttonList.map((singleButton, index) => {
-            return (
-              <RangeButton
-                name={singleButton.name}
-                handler={() => {
-                  setRange(singleButton.name);
-                }}
-                active={singleButton.name === range}
-                key={index}
-              />
-            );
-          })}
+          {buttonList.map((singleButton, index) => (
+            <RangeButton
+              name={singleButton.name}
+              handler={() => {
+                setRange(singleButton.name);
+              }}
+              active={singleButton.name === range}
+              key={index}
+            />
+          ))}
         </div>
       </div>
     </div>
   );
 };
 
-export default ChatContainer;
+export default ChartContainer;

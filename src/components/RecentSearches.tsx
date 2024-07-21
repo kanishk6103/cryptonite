@@ -31,7 +31,7 @@ const RecentSearches = () => {
   return (
     <div className="w-full px-5 border rounded-lg float-right mx-5 h-max">
       <div className="flex justify-between items-center">
-        <h2 className="text-xl font-bold my-5">Recently Searches</h2>
+        <h2 className="text-xl font-bold my-5">Recently Searched</h2>
         <button
           className="text-red-500 hover:underline pl-5 text-sm"
           onClick={handleClearHistory}
