@@ -20,7 +20,7 @@ export default function ThemeSwitch() {
         setTheme("light");
         break;
       default:
-        setTheme("light"); // Default to light if theme is undefined
+        setTheme("light");
     }
   };
 

@@ -17,6 +17,7 @@ const getCoinData = async (id: string) => {
         "x-cg-pro-api-key": process.env.NEXT_PUBLIC_COINGECKO_KEY as string,
       },
       cache: "force-cache",
+      next: { revalidate: 120 },
     });
     if (!res.ok) {
       throw new Error("Failed to fetch data");

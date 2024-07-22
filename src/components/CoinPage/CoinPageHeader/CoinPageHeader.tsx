@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { upArrow, downArrow } from "../../../../public/exports";
 import Chip from "@/components/Chip";
 const CoinPageHeader = ({ data }: any) => {
   const { name, image, market_data } = data;

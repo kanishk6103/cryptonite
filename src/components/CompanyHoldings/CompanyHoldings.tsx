@@ -11,6 +11,7 @@ const getData = async (id: string) => {
       method: "GET",
       headers: { accept: "application/json" },
       cache: "force-cache",
+      next: { revalidate: 120 },
     }
   );
   if (!res.ok) {

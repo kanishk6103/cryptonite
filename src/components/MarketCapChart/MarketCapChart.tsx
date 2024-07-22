@@ -15,6 +15,7 @@ const getMultipleCoinsMarketCapData = async (
             accept: "application/json",
           },
           cache: "force-cache",
+          next: { revalidate: 120 },
         }
       ).then((res) => {
         if (!res.ok) {
