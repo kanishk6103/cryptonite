@@ -20,82 +20,135 @@ const getData = async (id: string) => {
   return res.json();
 };
 
+const StatTile = ({
+  label,
+  value,
+}: {
+  label: string;
+  value: React.ReactNode;
+}) => (
+  <div className="surface rounded-xl px-4 py-3">
+    <div className="text-[11px] uppercase tracking-[0.18em] text-ink-muted">
+      {label}
+    </div>
+    <div className="mt-1 text-base font-semibold tabular-nums">{value}</div>
+  </div>
+);
+
+const SegmentButton = ({
+  active,
+  children,
+  onClick,
+}: {
+  active: boolean;
+  children: React.ReactNode;
+  onClick: () => void;
+}) => (
+  <button
+    onClick={onClick}
+    className={`px-3.5 py-1.5 text-sm font-medium rounded-md transition-colors ${
+      active
+        ? "bg-surface text-ink-primary shadow-sm"
+        : "text-ink-secondary hover:text-ink-primary"
+    }`}
+  >
+    {children}
+  </button>
+);
+
 const CompanyHoldings = () => {
   const [buttonState, setButtonState] = useState<string>("bitcoin");
   const [companyData, setCompanyData] = useState<HoldingsData>();
+  const [loading, setLoading] = useState<boolean>(true);
+
   const handleClick = async (name: string) => {
-    const data = await getData(name);
-    setCompanyData(data);
+    setLoading(true);
+    try {
+      const data = await getData(name);
+      setCompanyData(data);
+    } finally {
+      setLoading(false);
+    }
   };
+
   useEffect(() => {
     handleClick(buttonState);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
-    <>
-      <h1 className="mainHeading">Public Company Holdings</h1>
-      <div className="flex flex-col">
-        <div className="w-full flex justify-between">
-          {companyData ? (
-            <div className="flex flex-col xl:flex-row xl:gap-8 gap-2 w-full items-start xl:justify-normal justify-center my-5">
-              <div className="flex gap-2">
-                <span className="font-semibold">Total Holdings: </span>
-                {companyData.total_holdings.toLocaleString('en-IN')}
-              </div>
-              <div className="flex gap-2">
-                <span className="font-semibold">Total Value:</span>{" "}
-                ${companyData.total_value_usd.toLocaleString('en-IN')}
-              </div>
-              <div className="flex gap-2">
-                <span className="font-semibold">Market Cap Dominance:</span>{" "}
-                {companyData.market_cap_dominance.toLocaleString('en-IN')}
-              </div>
-            </div>
-          ) : (
-            <h1>Loading...</h1>
-          )}
-          <div className="flex gap-6">
-            <button
-              className={`p-2 border rounded-lg h-max ${
-                buttonState === "bitcoin"
-                  ? "bg-blue-500 text-white font-semibold"
-                  : ""
-              }`}
-              onClick={() => {
-                handleClick("bitcoin");
-                setButtonState("bitcoin");
-              }}
-              disabled={buttonState === "bitcoin"}
-            >
-              Bitcoin
-            </button>
-            <button
-              className={`p-2 border rounded-lg h-max ${
-                buttonState === "ethereum"
-                  ? "bg-blue-500 text-white font-semibold"
-                  : ""
-              }`}
-              onClick={() => {
-                handleClick("ethereum");
-                setButtonState("ethereum");
-              }}
-              disabled={buttonState === "ethereum"}
-            >
-              Ethereum
-            </button>
-          </div>
+    <section>
+      <div className="flex items-end justify-between flex-wrap gap-4 mb-5">
+        <div>
+          <p className="text-xs uppercase tracking-[0.18em] text-ink-muted mb-1">
+            Treasuries
+          </p>
+          <h2 className="text-2xl font-bold tracking-tight">
+            Public Company Holdings
+          </h2>
         </div>
-        {companyData ? (
-          <Table
-            headings={companyHeaderList}
-            data={companyData?.companies as any}
-            itemsPerPage={5}
-            rowClickHandler={null}
-          />
-        ) : (
-          <h1>Loading Table data...</h1>
-        )}
+        <div className="surface-2 rounded-lg p-1 inline-flex items-center gap-1">
+          <SegmentButton
+            active={buttonState === "bitcoin"}
+            onClick={() => {
+              handleClick("bitcoin");
+              setButtonState("bitcoin");
+            }}
+          >
+            Bitcoin
+          </SegmentButton>
+          <SegmentButton
+            active={buttonState === "ethereum"}
+            onClick={() => {
+              handleClick("ethereum");
+              setButtonState("ethereum");
+            }}
+          >
+            Ethereum
+          </SegmentButton>
+        </div>
       </div>
-    </>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
+        <StatTile
+          label="Total Holdings"
+          value={
+            companyData
+              ? companyData.total_holdings.toLocaleString("en-IN")
+              : "—"
+          }
+        />
+        <StatTile
+          label="Total Value"
+          value={
+            companyData
+              ? `$${companyData.total_value_usd.toLocaleString("en-IN")}`
+              : "—"
+          }
+        />
+        <StatTile
+          label="Market Cap Dominance"
+          value={
+            companyData
+              ? `${companyData.market_cap_dominance.toLocaleString("en-IN")}%`
+              : "—"
+          }
+        />
+      </div>
+
+      {companyData && !loading ? (
+        <Table
+          headings={companyHeaderList}
+          data={companyData?.companies as any}
+          itemsPerPage={5}
+          rowClickHandler={null}
+        />
+      ) : (
+        <div className="surface-elevated rounded-2xl h-[440px] flex items-center justify-center text-sm text-ink-muted">
+          Loading table data...
+        </div>
+      )}
+    </section>
   );
 };
 

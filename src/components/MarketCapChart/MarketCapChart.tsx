@@ -1,4 +1,4 @@
-import { coinIdList } from "./constants";
+import { coinIdList, coinIdListWithColors } from "./constants";
 import MultipleCoinChart from "./MultipleCoinChart";
 
 const getMultipleCoinsMarketCapData = async (
@@ -27,7 +27,6 @@ const getMultipleCoinsMarketCapData = async (
 
     const results = await Promise.all(requests);
 
-    // console.log(results);
     return results.map((result, index) => ({
       coinID: coinIDs[index],
       marketCaps: result.market_caps,
@@ -46,26 +45,45 @@ const MarketCapChartContainer = async ({
   days: number;
 }) => {
   const marketCapData = await getMultipleCoinsMarketCapData(coinIDs, days);
-  //   console.log(marketCapData);
   return (
-    <div>
-      {marketCapData ? (
+    <>
+      {marketCapData && marketCapData.length > 0 ? (
         <MultipleCoinChart data={marketCapData} />
       ) : (
-        <div className="w-full h-full flex items-center justify-center text-lg font-semibold">
-          Loading...
+        <div className="w-full h-[400px] flex items-center justify-center text-sm text-ink-muted">
+          Loading chart...
         </div>
       )}
-    </div>
+    </>
   );
 };
 
 const MarketCapChart = async () => {
   return (
-    <div>
-      <div className="border-2 rounded-xl w-full p-5 mb-10 flex-1">
-        <MarketCapChartContainer coinIDs={coinIdList} days={365} />
+    <div className="surface-elevated rounded-2xl p-6 h-full">
+      <div className="flex items-start justify-between gap-4 flex-wrap mb-4">
+        <div>
+          <p className="text-xs uppercase tracking-[0.18em] text-ink-muted">
+            Market Cap
+          </p>
+          <h2 className="text-lg font-semibold mt-1">Top Coins · 1Y</h2>
+        </div>
+        <div className="flex items-center gap-3">
+          {coinIdListWithColors.map((c) => (
+            <div
+              key={c.coin}
+              className="flex items-center gap-1.5 text-xs text-ink-secondary capitalize"
+            >
+              <span
+                className="h-2 w-2 rounded-full"
+                style={{ backgroundColor: c.color }}
+              />
+              {c.coin}
+            </div>
+          ))}
+        </div>
       </div>
+      <MarketCapChartContainer coinIDs={coinIdList} days={365} />
     </div>
   );
 };

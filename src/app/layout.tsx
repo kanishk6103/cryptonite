@@ -18,10 +18,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} dark:bg-gray-900 mb-5`}>
+      <body
+        className={`${inter.className} bg-base text-ink-primary antialiased min-h-screen flex flex-col`}
+      >
         <Providers>
           <Header />
-          {children}
+          <main className="flex-1 flex flex-col">{children}</main>
           <Footer />
         </Providers>
       </body>
