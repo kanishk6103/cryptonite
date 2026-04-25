@@ -3,7 +3,6 @@
 import { FiSun, FiMoon } from "react-icons/fi";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
-import Image from "next/image";
 
 export default function ThemeSwitch() {
   const [mounted, setMounted] = useState(false);
@@ -12,16 +11,7 @@ export default function ThemeSwitch() {
   useEffect(() => setMounted(true), []);
 
   const switchTheme = () => {
-    switch (theme) {
-      case "light":
-        setTheme("dark");
-        break;
-      case "dark":
-        setTheme("light");
-        break;
-      default:
-        setTheme("light");
-    }
+    setTheme(theme === "dark" ? "light" : "dark");
   };
 
   const toggleTheme = () => {
@@ -34,27 +24,22 @@ export default function ThemeSwitch() {
     }
   };
 
-  if (!mounted) {
-    return (
-      <Image
-        src="data:image/svg+xml;base64,PHN2ZyBzdHJva2U9IiNGRkZGRkYiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZS13aWR0aD0iMCIgdmlld0JveD0iMCAwIDI0IDI0IiBoZWlnaHQ9IjIwMHB4IiB3aWR0aD0iMjAwcHgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiB4PSIyIiB5PSIyIiBmaWxsPSJub25lIiBzdHJva2Utd2lkdGg9IjIiIHJ4PSIyIj48L3JlY3Q+PC9zdmc+Cg=="
-        width={48}
-        height={48}
-        sizes="48x48"
-        alt="Loading Light/Dark Toggle"
-        priority={false}
-        title="Loading Light/Dark Toggle"
-      />
-    );
-  }
-
-  if (theme === "dark") {
-    return <FiSun onClick={toggleTheme} />;
-  }
-
-  if (theme === "light") {
-    return <FiMoon onClick={toggleTheme} />;
-  }
-
-  return <FiMoon onClick={toggleTheme} />;
+  return (
+    <button
+      type="button"
+      onClick={toggleTheme}
+      aria-label="Toggle theme"
+      className="h-9 w-9 inline-flex items-center justify-center rounded-lg text-ink-secondary hover:text-ink-primary hover:bg-surface-2 transition-colors"
+    >
+      {mounted ? (
+        theme === "dark" ? (
+          <FiSun size={18} />
+        ) : (
+          <FiMoon size={18} />
+        )
+      ) : (
+        <span className="h-[18px] w-[18px]" />
+      )}
+    </button>
+  );
 }

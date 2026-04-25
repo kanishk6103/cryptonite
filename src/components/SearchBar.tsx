@@ -5,6 +5,7 @@ import { AppState } from "@/lib/store";
 import { coinType } from "@/types/companyHoldings";
 import { useRouter } from "next/navigation";
 import { searchResults } from "@/lib/features/coin/searchSlice";
+import { FiSearch } from "react-icons/fi";
 
 const SearchBar = ({ placeholder }: { placeholder: string }) => {
   const [query, setQuery] = useState("");
@@ -89,32 +90,38 @@ const SearchBar = ({ placeholder }: { placeholder: string }) => {
       setQuery("");
       setSuggestions([]);
       dispatch(searchResults({ [matchingCoin.id]: matchingCoin }));
-    } else {
-      console.log("No valid coin selected");
     }
-    console.log("Searching for:", query);
   };
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col items-center w-full max-w-xl mx-auto relative"
+      className="w-full max-w-xl relative"
     >
-      <input
-        type="text"
-        value={query}
-        onFocus={handleInputFocus}
-        onBlur={handleInputBlur}
-        onChange={handleInputChange}
-        placeholder={placeholder}
-        className="p-2 w-full text-gray-700 dark:text-gray-300 bg-transparent border border-gray-300 min-w-[200px] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
+      <div className="relative">
+        <FiSearch
+          size={16}
+          className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-muted pointer-events-none"
+        />
+        <input
+          type="text"
+          value={query}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          onChange={handleInputChange}
+          placeholder={placeholder}
+          className="w-full h-10 pl-9 pr-3 text-sm bg-surface-2 text-ink-primary placeholder:text-ink-muted border border-border-subtle rounded-lg focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/30 transition-colors"
+        />
+      </div>
       {isFocused && suggestions.length > 0 && (
-        <ul className="w-full min-w-[200px] mt-2 bg-white dark:bg-gray-700 rounded-md shadow-md absolute top-10 z-20" key={Date.now()}>
+        <ul
+          className="w-full mt-2 surface-elevated rounded-lg overflow-hidden absolute top-full z-30"
+          key={Date.now()}
+        >
           {suggestions.map((coin) => (
             <li
               key={coin.id}
-              className="py-1 px-2 hover:bg-gray-200 dark:hover:bg-gray-500 cursor-pointer"
+              className="px-3 py-2 text-sm text-ink-secondary hover:text-ink-primary hover:bg-surface-2 cursor-pointer flex items-center justify-between"
               onClick={() => {
                 setQuery(coin.name);
                 setSuggestions([]);
@@ -123,7 +130,10 @@ const SearchBar = ({ placeholder }: { placeholder: string }) => {
                 setQuery("");
               }}
             >
-              {coin.name}
+              <span>{coin.name}</span>
+              <span className="text-xs uppercase text-ink-muted tracking-wider">
+                {coin.symbol}
+              </span>
             </li>
           ))}
         </ul>

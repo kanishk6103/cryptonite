@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { AppState } from "@/lib/store";
 import { useRouter } from "next/navigation";
 import { clearWatchList } from "@/lib/features/coin/watchListSlice";
+import { FiStar, FiChevronRight } from "react-icons/fi";
 
 const WatchList = () => {
   const [hydrated, setHydrated] = useState(false);
@@ -30,31 +31,55 @@ const WatchList = () => {
     localStorage.removeItem("watchListItems");
   };
 
+  const items = Object.values(watchListItems);
+
   return (
-    <div className="w-full px-5 border rounded-lg float-right m-5 h-max max-w-[720px]">
-      <div className="flex justify-between items-center">
-        <h2 className="text-xl font-bold my-5">Watch List</h2>
-        <button
-          className="text-red-500 hover:underline pl-5 text-sm"
-          onClick={handleClearHistory}
-        >
-          clear
-        </button>
+    <div className="surface-elevated rounded-2xl p-5">
+      <div className="flex justify-between items-center mb-3">
+        <div className="flex items-center gap-2">
+          <FiStar size={14} className="text-ink-muted" />
+          <h2 className="text-sm font-semibold tracking-tight">Watch List</h2>
+        </div>
+        {items.length > 0 && (
+          <button
+            className="text-xs font-medium text-negative hover:opacity-80 transition-opacity"
+            onClick={handleClearHistory}
+          >
+            Clear
+          </button>
+        )}
       </div>
-      <ul className="flex flex-col gap-5 w-full my-5">
-        {Object.values(watchListItems).map((coin) => (
-          <div key={coin.id}>
+
+      {items.length === 0 ? (
+        <div className="py-6 text-center text-xs text-ink-muted">
+          Star coins on the explore page to add them here.
+        </div>
+      ) : (
+        <ul className="flex flex-col">
+          {items.map((coin, i) => (
             <li
-              className="cursor-pointer hover:underline my-2 w-full flex items-center justify-between text-lg"
+              key={coin.id}
               onClick={() => handleCoinClick(coin.id)}
+              className={`group flex items-center justify-between py-2.5 cursor-pointer ${
+                i !== items.length - 1 ? "border-b border-border-subtle" : ""
+              }`}
             >
-              <span className="font-semibold">{coin.name}</span>
-              <span className="font-light">{coin.symbol}</span>
+              <div className="flex flex-col">
+                <span className="text-sm font-medium text-ink-primary group-hover:text-accent transition-colors">
+                  {coin.name}
+                </span>
+                <span className="text-xs uppercase tracking-wider text-ink-muted">
+                  {coin.symbol}
+                </span>
+              </div>
+              <FiChevronRight
+                size={16}
+                className="text-ink-muted group-hover:text-accent transition-colors"
+              />
             </li>
-            <hr />
-          </div>
-        ))}
-      </ul>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
